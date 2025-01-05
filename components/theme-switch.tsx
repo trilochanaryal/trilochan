@@ -27,7 +27,7 @@ export const ThemeSwitch: React.FC = () => {
     'light',
   );
 
-  const getColorPreference = (): 'light' | 'dark' => {
+  const getColorPreference = React.useCallback((): 'light' | 'dark' => {
     if (typeof window !== 'undefined') {
       const storedPreference = localStorage.getItem(storageKey);
       if (storedPreference) {
@@ -38,14 +38,17 @@ export const ThemeSwitch: React.FC = () => {
         : 'light';
     }
     return 'light';
-  };
+  }, []);
 
-  const reflectPreference = (theme: 'light' | 'dark') => {
-    document.documentElement.classList.remove('bg-light', 'bg-dark');
-    document.documentElement.classList.add(`bg-${theme}`);
-    setCurrentTheme(theme);
-    setTheme(theme);
-  };
+  const reflectPreference = React.useCallback(
+    (theme: 'light' | 'dark') => {
+      document.documentElement.classList.remove('bg-light', 'bg-dark');
+      document.documentElement.classList.add(`bg-${theme}`);
+      setCurrentTheme(theme);
+      setTheme(theme);
+    },
+    [setTheme],
+  );
 
   React.useEffect(() => {
     setMounted(true);
@@ -62,13 +65,13 @@ export const ThemeSwitch: React.FC = () => {
     mediaQuery.addEventListener('change', handleChange);
 
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [setTheme]);
+  }, [getColorPreference, reflectPreference]);
 
-  const toggleTheme = () => {
+  const toggleTheme = React.useCallback(() => {
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     localStorage.setItem(storageKey, newTheme);
     reflectPreference(newTheme);
-  };
+  }, [currentTheme, reflectPreference]);
 
   if (!mounted) {
     return (
