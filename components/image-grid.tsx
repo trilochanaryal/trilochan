@@ -24,7 +24,10 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
     <section>
       <div className={`grid ${gridClass} gap-4 my-8`}>
         {images.map((image, index) => (
-          <div key={index} className="relative aspect-square">
+          <div
+            key={index}
+            className="relative aspect-square overflow-hidden group"
+          >
             {image.href ? (
               <a
                 target="_blank"
@@ -38,7 +41,7 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
                   fill
                   sizes="(max-width: 768px) 50vw, 33vw"
                   priority
-                  className="rounded-lg object-cover"
+                  className="rounded-lg object-cover transition-transform duration-300 group-hover:scale-105" // Add zoom effect here
                 />
               </a>
             ) : (
@@ -48,7 +51,7 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
                 fill
                 sizes="(max-width: 768px) 50vw, 33vw"
                 priority
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover transition-transform duration-300 group-hover:scale-105" // Add zoom effect here
               />
             )}
           </div>
