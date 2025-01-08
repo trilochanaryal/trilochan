@@ -1,6 +1,10 @@
 module.exports = {
   darkMode: 'class',
-  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './public/**/*.svg'],
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './public/**/*.svg',
+    './components/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       typography: {
