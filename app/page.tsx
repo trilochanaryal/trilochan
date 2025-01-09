@@ -1,67 +1,47 @@
+'use client';
 import Image from 'next/image';
-import { socialLinks } from '@/config';
 import Link from 'next/link';
 
 export default function Page() {
   return (
     <section>
-      <Link href={socialLinks.twitter} target="_blank">
-        <Image
-          src="/profile.png"
-          alt="Profile photo"
-          className="rounded-full bg-gray-100 block lg:mt-5 mt-0 lg:mb-5 mb-10 mx-auto sm:float-right sm:ml-5 sm:mb-5 grayscale hover:grayscale-0"
-          unoptimized
-          width={60}
-          height={60}
-          priority
-        />
-      </Link>
-
-      <h1 className="mb-8 text-2xl font-medium tracking-tight">
-        Portfolio, made simple!
+      <Image
+        src="https://github.com/trilochanaryal/assets/blob/main/portfolio-photos/profile.jpeg?raw=true"
+        alt="Profile Picture"
+        className="rounded-full aspect-square object-cover cursor-pointer hover:grayscale transition-all duration-300 ease-in-out z-10"
+        unoptimized
+        width={110}
+        height={110}
+        priority
+      />
+      <h1 className="pt-8 mb-6 text-2xl font-medium tracking-tight">
+        Trilochan Aryal
       </h1>
 
       <div className="prose prose-neutral dark:prose-invert">
         <p>
-          A clean, fast, and lightweight portfolio template built with Next.js,
-          Vercel, and Tailwind CSS for optimal performance.
-        </p>
-        <p>
-          Nextfolio includes all the essentials for a stunning portfolio: SEO,
-          MDX support, RSS, Atom, & JSON feeds, analytics, tweet & YouTube
-          embeds, KaTeX integration, and{' '}
-          <Link
-            target="_blank"
-            href="https://github.com/1msirius/Nextfolio?tab=readme-ov-file#features"
-          >
-            more
-          </Link>
-          .
-        </p>
-        <p>
-          Nextfolio is{' '}
-          <Link href={socialLinks.github} target="_blank">
-            open-source
-          </Link>{' '}
-          and fully customizable, making it easy to add more features.
+          Hi 👋 I’m a software engineer with a passion for building fullstack
+          web applications that are as functional as they are user-friendly. My
+          focus is always on creating systems that solve real-world problems
+          while being scalable and efficient.
         </p>
         <p>
           <Link
-            href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2F1msirius%2FNextfolio"
+            href={
+              'https://docs.google.com/document/d/1l8pX7vG4HKG_osDblx560Ui8rYxGbtpzN_QFDdG-iVk/edit'
+            }
             target="_blank"
+            rel="noopener noreferrer"
           >
-            Deploy
-          </Link>{' '}
-          your Nextfolio site with Vercel in minutes and follow the set up
-          instructions in the{' '}
-          <Link href="/blog/getting-started">Getting Started</Link> post.
+            View Resume
+          </Link>
         </p>
         <p>
-          Built and maintained by{' '}
-          <Link href="https://github.com/trilochanaryal" target="_blank">
-            Trilochan Aryal
-          </Link>
-          .
+          If you'd like to collaborate, please send me an{' '}
+          <Link href={'mailto:aryaltrylowchan@gmail.com'} target="_blank">
+            email
+          </Link>{' '}
+          or reach out on any of my social handles.
         </p>
       </div>
     </section>

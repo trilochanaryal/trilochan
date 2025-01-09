@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
   },
   icons: {
-    icon: '/logo.jpeg',
+    icon: '/logo.svg',
   },
 };
 
