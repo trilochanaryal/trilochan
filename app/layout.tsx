@@ -5,7 +5,7 @@ import { Navbar } from '@/components/navbar/nav';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Footer from '@/components/footer';
-import { ThemeProvider } from '@/components/theme-switch';
+import { ThemeProvider } from '@/components/theme-provider';
 import { metaData } from '@/config';
 
 export const metadata: Metadata = {
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/logo.jpeg',
   },
 };
 
@@ -60,26 +60,6 @@ export default function RootLayout({
       className={`${domine.className} antialiased`}
       suppressContentEditableWarning
     >
-      <head>
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          href="/rss.xml"
-          title="RSS Feed"
-        />
-        <link
-          rel="alternate"
-          type="application/atom+xml"
-          href="/atom.xml"
-          title="Atom Feed"
-        />
-        <link
-          rel="alternate"
-          type="application/feed+json"
-          href="/feed.json"
-          title="JSON Feed"
-        />
-      </head>
       <body className="antialiased flex flex-col items-center justify-center mx-auto mb-20 lg:mb-40">
         <ThemeProvider
           attribute="class"
