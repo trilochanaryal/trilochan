@@ -5,7 +5,7 @@ import {
   FaXTwitter,
   FaGithub,
   FaInstagram,
-  FaRss,
+  FaTelegram,
   FaLinkedinIn,
 } from 'react-icons/fa6';
 import { TbMailFilled } from 'react-icons/tb';
@@ -29,14 +29,12 @@ function SocialLink({ href, icon: Icon }: SocialLinkProps) {
 function SocialLinks() {
   return (
     <div className="flex text-lg gap-3.5 float-right transition-opacity duration-300 hover:opacity-90">
-      <SocialLink href={socialLinks.twitter} icon={FaXTwitter} />
       <SocialLink href={socialLinks.github} icon={FaGithub} />
-      <SocialLink href={socialLinks.instagram} icon={FaInstagram} />
       <SocialLink href={socialLinks.linkedin} icon={FaLinkedinIn} />
+      <SocialLink href={socialLinks.twitter} icon={FaXTwitter} />
+      <SocialLink href={socialLinks.telegram} icon={FaTelegram} />
+      <SocialLink href={socialLinks.instagram} icon={FaInstagram} />
       <SocialLink href={socialLinks.email} icon={TbMailFilled} />
-      <a href="/rss.xml" target="_self">
-        <FaRss />
-      </a>
     </div>
   );
 }
