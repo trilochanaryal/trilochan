@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ThemeSwitch } from '../theme-switch';
+import { ThemeToggler } from '../theme-toggler';
 import { cn } from '@/lib/utils';
 
 const navItems = {
@@ -38,7 +38,7 @@ export function Navlinks({ isMenuOpen }: Props) {
         </Link>
       ))}
       <div className="mt-8 md:mt-0 md:ml-6">
-        <ThemeSwitch />
+        <ThemeToggler />
       </div>
     </nav>
   );
