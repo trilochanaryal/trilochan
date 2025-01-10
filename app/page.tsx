@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <section>
       <Image
-        src="https://github.com/trilochanaryal/assets/blob/main/portfolio-photos/profile.jpeg?raw=true"
+        src="/photos/profile.jpeg"
         alt="Profile Picture"
         className="rounded-full aspect-square object-cover cursor-pointer hover:grayscale transition-all duration-300 ease-in-out z-10"
         unoptimized
@@ -14,7 +14,7 @@ export default function Page() {
         height={110}
         priority
       />
-      <h1 className="pt-8 mb-6 text-2xl font-medium tracking-tight">
+      <h1 className="pt-8 mb-4 text-2xl font-medium tracking-tight">
         Trilochan Aryal
       </h1>
 
