@@ -55,11 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${domine.className} antialiased`}
-      suppressContentEditableWarning
-    >
+    <html lang="en" className={`${domine.className} antialiased`}>
       <body className="antialiased flex flex-col items-center justify-center mx-auto mb-20 lg:mb-40">
         <ThemeProvider
           attribute="class"
@@ -67,8 +63,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="flex-auto min-w-0 flex flex-col px-6 sm:px-4 md:px-0 max-w-[640px] w-full mt-24">
-            <Navbar />
+          <Navbar />
+          <main className="flex-auto min-w-0 mt-2 flex flex-col px-6 sm:px-4 md:px-0 max-w-[640px] w-full">
             {children}
             <Footer />
             <Analytics />
