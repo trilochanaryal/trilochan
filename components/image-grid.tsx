@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ImageGridProps {
   images: {
@@ -26,14 +27,14 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
         {images.map((image, index) => (
           <div
             key={index}
-            className="relative aspect-square overflow-hidden group"
+            className="relative aspect-square overflow-hidden rounded-lg group touch-none"
           >
             {image.href ? (
-              <a
+              <Link
                 target="_blank"
                 rel="noopener noreferrer"
                 href={image.href}
-                className="block w-full h-full"
+                className="block w-full h-full overflow-hidden"
               >
                 <Image
                   alt={image.alt}
@@ -41,9 +42,9 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
                   fill
                   sizes="(max-width: 768px) 50vw, 33vw"
                   priority
-                  className="rounded-lg object-cover transition-transform duration-300 group-hover:scale-105" // Add zoom effect here
+                  className="rounded-lg object-cover transition-all duration-500 ease-in-out group-hover:scale-110 hover:scale-110 active:scale-110"
                 />
-              </a>
+              </Link>
             ) : (
               <Image
                 alt={image.alt}
@@ -51,7 +52,7 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
                 fill
                 sizes="(max-width: 768px) 50vw, 33vw"
                 priority
-                className="rounded-lg object-cover transition-transform duration-300 group-hover:scale-105" // Add zoom effect here
+                className="rounded-lg object-cover transition-all duration-500 ease-in-out group-hover:scale-110 hover:scale-110 active:scale-110"
               />
             )}
           </div>
