@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Hamburger from './hamburger';
+import { Hamburger } from './hamburger';
 import { Navlinks } from './navlinks';
+import { ThemeToggler } from '../theme-toggler';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,12 +12,15 @@ export function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm transition-colors duration-300">
-      <div className="max-w-[640px] mx-auto px-6 sm:px-4 md:px-0 py-4 flex items-center justify-between relative w-full">
-        <Hamburger isMenuOpen={isMenuOpen} onToggleHamburger={toggleMenu} />
-        <Navlinks isMenuOpen={isMenuOpen} />
-      </div>
+    <header className="max-w-[640px] h-[5rem] px-4 py-6 flex flex-auto md:flex-row-reverse gap-4 items-center justify-end relative w-full md:px-0">
+      <ThemeToggler />
+      <Hamburger isMenuOpen={isMenuOpen} onToggleHamburger={toggleMenu} />
+      <Navlinks isMenuOpen={isMenuOpen} onLinkClick={closeMenu} />
     </header>
   );
 }
