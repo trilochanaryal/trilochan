@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { parse } from 'rss-to-json';
 
 type Metadata = {
   title: string;
@@ -88,4 +89,23 @@ export function formatDate(date: string, includeRelative = false) {
   }
 
   return `${fullDate} (${formattedDate})`;
+}
+
+export async function getMediumPosts() {
+  try {
+    const rss = await parse('https://medium.com/feed/@Trilochanaryal');
+    return rss.items.map((item: any) => {
+      // Convert Medium date to proper JavaScript Date
+      const pubDate = new Date(item.published);
+      return {
+        title: item.title,
+        description: item.description,
+        link: item.link,
+        date: pubDate.toISOString(), // Convert to ISO string
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching Medium posts:', error);
+    return [];
+  }
 }
