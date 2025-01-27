@@ -1,14 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import { Metadata, Post } from '@/types';
 import { parse } from 'rss-to-json';
-
-type Metadata = {
-  title: string;
-  publishedAt: string;
-  summary: string;
-  tags: string;
-  image?: string;
-};
 
 function parseFrontmatter(fileContent: string) {
   const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
@@ -95,17 +88,53 @@ export async function getMediumPosts() {
   try {
     const rss = await parse('https://medium.com/feed/@Trilochanaryal');
     return rss.items.map((item: any) => {
-      // Convert Medium date to proper JavaScript Date
       const pubDate = new Date(item.published);
       return {
         title: item.title,
         description: item.description,
         link: item.link,
-        date: pubDate.toISOString(), // Convert to ISO string
+        category: item.category,
+        date: pubDate.toISOString(),
       };
     });
   } catch (error) {
     console.error('Error fetching Medium posts:', error);
     return [];
   }
+}
+
+export async function getAllPosts(): Promise<Post[]> {
+  const mdxPost = getBlogPosts();
+  const mediumPosts = await getMediumPosts();
+
+  console.log(mediumPosts);
+
+  const allPosts: Post[] = [
+    ...mdxPost.map((post) => ({
+      ...post,
+      source: 'local' as const,
+      metadata: {
+        ...post.metadata,
+        tags: Array.isArray(post.metadata.tags)
+          ? post.metadata.tags
+          : [post.metadata.tags].filter(Boolean),
+      },
+    })),
+    ...mediumPosts.map((post) => ({
+      metadata: {
+        title: post.title,
+        publishedAt: post.date,
+        tags: post.category,
+      },
+      slug: post.link,
+      content: '',
+      source: 'medium' as const,
+    })),
+  ].sort(
+    (a, b) =>
+      new Date(b.metadata.publishedAt).getTime() -
+      new Date(a.metadata.publishedAt).getTime(),
+  );
+
+  return allPosts;
 }
