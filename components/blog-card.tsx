@@ -1,64 +1,54 @@
-import { ReadMoreIcon } from '@/components/navbar/icons';
 import Link from 'next/link';
-import React from 'react';
+import { Post } from '@/types/';
+import { formatDate } from '@/lib/posts';
+import { Arrow } from '@/components/navbar/icons/index';
 
-type BlogCardProps = {
-  title: string;
-  slug: string;
-  description: string;
-  featured?: boolean;
-  source?: 'local' | 'medium';
-};
+export const BlogPostCard = ({ post }: { post: Post }) => (
+  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b border-neutral-200 dark:border-neutral-800">
+    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+      {formatDate(post.metadata.publishedAt, false)}
+    </p>
 
-export const BlogCard = ({
-  title,
-  description,
-  slug,
-  featured = false,
-  source = 'local',
-}: BlogCardProps) => {
-  const isExternal = source === 'medium';
-  const cardClasses = [
-    'relative flex flex-col justify-between overflow-hidden rounded-xl',
-    'bg-gradient-to-r from-[var(--blogCardBg)] to-[var(--cardBackground)]',
-    'p-4 shadow-md transition hover:bg-cardBackground',
-    featured ? 'min-h-[200px] md:min-h-[250px]' : 'min-h-28',
-  ].join(' ');
+    <h3 className="text-neutral-900 dark:text-white font-medium flex-1 mx-4">
+      {post.metadata.title}
+    </h3>
 
-  return (
-    <Link
-      href={isExternal ? slug : `/blog/${slug}`}
-      target={isExternal ? '_blank' : '_self'}
-      passHref
-    >
-      <article className={cardClasses}>
-        {featured && <FeaturedBadge>Latest</FeaturedBadge>}
-
-        <div className="space-y-2">
-          <h2 className="text-lg font-semibold text-foregroundText">{title}</h2>
-          <p className="text-sm font-light text-lightText line-clamp-3">
-            {description}
-          </p>
-        </div>
-
-        <CardFooter />
-      </article>
-    </Link>
-  );
-};
-
-const FeaturedBadge = ({ children }: { children: React.ReactNode }) => (
-  <span className="absolute right-4 top-4 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-    {children}
-  </span>
+    <div className="flex items-center gap-2">
+      {post.metadata.tags?.map((tag) => (
+        <span
+          key={tag}
+          className="px-2 py-1 text-xs rounded-full bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300"
+        >
+          {tag}
+        </span>
+      ))}
+      <Arrow />
+    </div>
+  </div>
 );
 
-const CardFooter = () => (
-  <div className="mt-1 flex justify-between">
-    <span className="absolute -bottom-3 -left-3 h-9 w-9 -rotate-45 rounded-r-full bg-[var(--blogCardDarkBg)]" />
-    <button className="flex items-center text-xs text-lightText hover:text-primary transition-colors">
-      Read More
-      <ReadMoreIcon className="ml-2 h-4 w-4" stroke="currentColor" />
-    </button>
+export const LatestBlogPost = ({ post }: { post: Post }) => (
+  <div className="p-6 rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+    <Link href={`/blog/${post.slug}`} className="group flex flex-col gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+        <p className="text-neutral-600 dark:text-neutral-400">
+          {formatDate(post.metadata.publishedAt, false)}
+        </p>
+        <h3 className="text-lg font-medium text-neutral-900 dark:text-white flex-1">
+          {post.metadata.title}
+        </h3>
+        <div className="flex items-center gap-2">
+          {post.metadata.tags?.map((tag) => (
+            <span
+              key={tag}
+              className="px-2 py-1 text-xs rounded-full bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300"
+            >
+              {tag}
+            </span>
+          ))}
+          <Arrow />
+        </div>
+      </div>
+    </Link>
   </div>
 );
