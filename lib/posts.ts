@@ -107,7 +107,6 @@ export async function getAllPosts(): Promise<Post[]> {
   const mdxPost = getBlogPosts();
   const mediumPosts = await getMediumPosts();
 
-  console.log(mediumPosts);
 
   const allPosts: Post[] = [
     ...mdxPost.map((post) => ({

@@ -29,7 +29,7 @@ export const BlogPostCard = ({ post }: { post: Post }) => (
 
 export const LatestBlogPost = ({ post }: { post: Post }) => (
   <div className="p-6 rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
-    <Link href={`/blog/${post.slug}`} className="group flex flex-col gap-4">
+    <Link href={post.slug} className="group flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
         <p className="text-neutral-600 dark:text-neutral-400">
           {formatDate(post.metadata.publishedAt, false)}
