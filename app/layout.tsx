@@ -16,7 +16,14 @@ export const metadata: Metadata = {
   },
   description: metaData.description,
   openGraph: {
-    images: metaData.ogImage,
+    images: [
+      {
+        url: `${metaData.baseUrl}/apple-touch-icon.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Trilochan Aryal Portfolio',
+      },
+    ],
     title: metaData.title,
     description: metaData.description,
     url: metaData.baseUrl,
@@ -37,10 +44,23 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: metaData.name,
+    description: metaData.description,
+    images: [`${metaData.baseUrl}/og-image.png`], // Same OG image for Twitter
     card: 'summary_large_image',
   },
   icons: {
-    icon: '/logo.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/logo.svg', type: 'image/svg', sizes: '32x32' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [{ url: '/logo.svg', sizes: '180x180', type: 'image/svg' }],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/logo.svg',
+      },
+    ],
   },
 };
 

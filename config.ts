@@ -2,7 +2,7 @@ export const metaData = {
   baseUrl: 'https://atrilochan.com.np',
   title: 'Trilochan Aryal',
   name: 'Personal Website',
-  ogImage: '/opengraph-image.png',
+  ogImage: '/apple-touch-icon.png',
   description: 'This is my portfolio built using next js',
 };
 
