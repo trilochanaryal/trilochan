@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { Domine } from 'next/font/google';
 import { Navbar } from '@/components/navbar/nav';
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import Footer from '@/components/footer';
 import { ThemeProvider } from '@/components/theme-provider';
 import { metaData } from '@/config';
@@ -45,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     title: metaData.name,
     description: metaData.description,
-    images: [`${metaData.baseUrl}/og-image.png`], // Same OG image for Twitter
+    images: [`${metaData.baseUrl}/og-image.png`],
     card: 'summary_large_image',
   },
   icons: {
@@ -75,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${domine.className} antialiased`}>
+    <html lang="en" className={`${domine.className} `} suppressHydrationWarning>
       <body className="antialiased flex flex-col items-center justify-center mx-auto mb-20 lg:mb-40">
         <ThemeProvider
           attribute="class"
@@ -88,7 +87,6 @@ export default function RootLayout({
             {children}
             <Footer />
             <Analytics />
-            <SpeedInsights />
           </main>
         </ThemeProvider>
       </body>
