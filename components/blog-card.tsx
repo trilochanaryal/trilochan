@@ -2,9 +2,9 @@ import { Post } from '@/types/';
 import { formatDate } from '@/lib/posts';
 import { Clock, ArrowRight } from 'lucide-react';
 
-export const BlogPostCard = ({ post }: { post: Post }) => (
+export const BlogCard = ({ post }: { post: Post }) => (
   <article
-    className="w-full max-w-4xl mx-auto p-6 my-4 rounded-lg 
+    className="w-full p-6 rounded-lg 
     card-gradient
     border border-gray-100/20 dark:border-gray-700/20
     hover:border-gray-200/50 dark:hover:border-gray-600/50
@@ -26,10 +26,8 @@ export const BlogPostCard = ({ post }: { post: Post }) => (
           <span>{post.metadata.readTime} min read</span>
         </div>
       </div>
-      <h3 className="text-lg font-semibold text-black dark:text-white">
-        {post.metadata.title}
-      </h3>
-      <p className="text-neutral-600 dark:text-neutral-400">
+      <h3 className="font-bold">{post.metadata.title}</h3>
+      <p className="text-sm text-neutral-600 dark:text-neutral-400">
         {post.metadata.description || 'No description available'}
       </p>
     </div>

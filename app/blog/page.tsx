@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getAllPosts } from '@/lib/posts';
 import Link from 'next/link';
-import { BlogPostCard } from '@/components/blog-card';
+import { BlogCard } from '@/components/blog-card';
 import { Pagination } from '@/components/pagination';
 import { Metadata } from 'next';
 import { getPageNumbers } from '@/lib/pagination';
@@ -29,7 +29,7 @@ export default async function BlogPosts({ searchParams }: Props) {
   );
 
   return (
-    <div className="max-w-2xl mx-auto px-4 min-h-screen">
+    <>
       <h1 className="mb-8 text-2xl font-medium tracking-tight">Blogs</h1>
       <div className="space-y-6">
         {currentPosts.map((post) => (
@@ -39,7 +39,7 @@ export default async function BlogPosts({ searchParams }: Props) {
             target={post.source === 'medium' ? '_blank' : '_self'}
             className="block group"
           >
-            <BlogPostCard post={post} />
+            <BlogCard post={post} />
           </Link>
         ))}
       </div>
@@ -50,6 +50,6 @@ export default async function BlogPosts({ searchParams }: Props) {
           baseUrl="/blog"
         />
       )}
-    </div>
+    </>
   );
 }
