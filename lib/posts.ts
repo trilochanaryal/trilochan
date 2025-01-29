@@ -30,14 +30,24 @@ function readMDXFile(filePath: string) {
   return parseFrontmatter(rawContent);
 }
 
+function calculateReadTime(content: string): number {
+  const wordsPerMinute = 200;
+  const words = content.trim().split(/\s+/).length;
+  return Math.ceil(words / wordsPerMinute);
+}
+
 function getMDXData(dir: string) {
   const mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file) => {
     const { metadata, content } = readMDXFile(path.join(dir, file));
     const slug = path.basename(file, path.extname(file));
+    const readTime = calculateReadTime(content);
 
     return {
-      metadata,
+      metadata: {
+        ...metadata,
+        readTime,
+      },
       slug,
       content,
     };
@@ -84,17 +94,41 @@ export function formatDate(date: string, includeRelative = false) {
   return `${fullDate} (${formattedDate})`;
 }
 
+function cleanHtmlContent(content: string): string {
+  // Remove figure tags and their contents
+  content = content.replace(/<figure[^>]*>.*?<\/figure>/g, '');
+
+  // Remove img tags
+  content = content.replace(/<img[^>]*>/g, '');
+
+  // Remove multiple consecutive line breaks
+  content = content.replace(/(\r\n|\n|\r){2,}/gm, '\n');
+
+  // Remove all HTML tags
+  content = content.replace(/<[^>]*>/g, '');
+
+  // Remove multiple spaces
+  content = content.replace(/\s\s+/g, ' ');
+
+  return content.trim();
+}
+
 export async function getMediumPosts() {
   try {
     const rss = await parse('https://medium.com/feed/@Trilochanaryal');
     return rss.items.map((item: any) => {
       const pubDate = new Date(item.published);
+      const cleanContent = cleanHtmlContent(
+        item.content || item.description || '',
+      );
+      const readTime = calculateReadTime(cleanContent);
       return {
         title: item.title,
-        description: item.description,
+        description: cleanContent,
         link: item.link,
-        category: item.category,
+        category: item.category || [],
         date: pubDate.toISOString(),
+        readTime,
       };
     });
   } catch (error) {
@@ -103,10 +137,18 @@ export async function getMediumPosts() {
   }
 }
 
+function truncateDescription(
+  description: string,
+  wordLimit: number = 15,
+): string {
+  const words = description.split(/\s+/);
+  if (words.length <= wordLimit) return description;
+  return words.slice(0, wordLimit).join(' ') + '...';
+}
+
 export async function getAllPosts(): Promise<Post[]> {
   const mdxPost = getBlogPosts();
   const mediumPosts = await getMediumPosts();
-
 
   const allPosts: Post[] = [
     ...mdxPost.map((post) => ({
@@ -114,16 +156,18 @@ export async function getAllPosts(): Promise<Post[]> {
       source: 'local' as const,
       metadata: {
         ...post.metadata,
-        tags: Array.isArray(post.metadata.tags)
-          ? post.metadata.tags
-          : [post.metadata.tags].filter(Boolean),
+        readTime: calculateReadTime(post.content),
+        description: truncateDescription(post.metadata.summary || ''),
+        tags: [],
       },
     })),
     ...mediumPosts.map((post) => ({
       metadata: {
         title: post.title,
         publishedAt: post.date,
-        tags: post.category,
+        description: truncateDescription(post.description || ''),
+        readTime: post.readTime,
+        tags: [],
       },
       slug: post.link,
       content: '',
