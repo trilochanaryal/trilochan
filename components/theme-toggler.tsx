@@ -16,14 +16,13 @@ export function ThemeToggler() {
         }
         setTheme('dark');
       }}
-      className="z-50 rounded-xs rounded p-1 hover:bg-gray-200 hover:dark:bg-[#313131]"
     >
       {theme === 'dark' ? (
-        <span className="sun-icon">
+        <span>
           <SunIcon height={25} width={25} />
         </span>
       ) : (
-        <span className="moon-icon">
+        <span>
           <MoonIcon height={25} width={25} />
         </span>
       )}
