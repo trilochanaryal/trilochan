@@ -18,8 +18,36 @@
   --sh-jsxliterals: #6266d1;
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
+
+  --card-gradient-light: linear-gradient(
+    135deg,
+    rgba(250, 250, 253, 0.8),
+    rgba(246, 246, 250, 0.6),
+    rgba(242, 242, 247, 0.4)
+  );
+  --card-gradient-dark: linear-gradient(
+    135deg,
+    rgba(30, 32, 40, 0.8),
+    rgba(28, 30, 38, 0.6),
+    rgba(26, 28, 36, 0.4)
+  );
 }
 
+.card-gradient {
+  background-image: var(--card-gradient-light);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .card-gradient {
+  background-image: var(--card-gradient-dark);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
 /* Dark theme colors */
 .dark {
   background-color: #121212;
