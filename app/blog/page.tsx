@@ -1,40 +1,55 @@
+import { notFound } from 'next/navigation';
 import { getAllPosts } from '@/lib/posts';
-import { BlogPostCard, LatestBlogPost } from '@/components/blog-card';
 import Link from 'next/link';
+import { BlogPostCard } from '@/components/blog-card';
+import { Pagination } from '@/components/pagination';
+import { Metadata } from 'next';
+import { getPageNumbers } from '@/lib/pagination';
 
-export const metadata = {
-  title: 'Blog',
-  description: 'Trilochan Aryal Blog',
+interface Props {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+export const metadata: Metadata = {
+  title: 'Blogs',
+  description: 'Blogs',
 };
 
-export default async function BlogPosts() {
+export default async function BlogPosts({ searchParams }: Props) {
+  const POSTS_PER_PAGE = 5;
+  const pageParam = (await searchParams)?.page || 1;
+  const page = typeof pageParam === 'string' ? parseInt(pageParam, 10) : 1;
   const allPosts = await getAllPosts();
-  const [latestPost, ...otherPosts] = allPosts;
+
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  if (page > totalPages) return notFound();
+
+  const currentPosts = allPosts.slice(
+    (page - 1) * POSTS_PER_PAGE,
+    page * POSTS_PER_PAGE,
+  );
 
   return (
-    <section className="max-w-2xl mx-auto">
-      <h1 className="mb-8 text-3xl font-bold tracking-tight">Our Blog</h1>
-
-      {latestPost && (
-        <div className="mb-12">
-          <h2 className="mb-4 text-xl font-semibold">Latest Post</h2>
-          <LatestBlogPost post={latestPost} />
-        </div>
-      )}
-
+    <div className="max-w-2xl mx-auto px-4 min-h-screen">
+      <h1 className="mb-8 text-2xl font-medium tracking-tight">Blogs</h1>
       <div className="space-y-6">
-        <h2 className="text-xl font-semibold">All Posts</h2>
-        {otherPosts.map((post) => (
+        {currentPosts.map((post) => (
           <Link
             key={post.slug}
             href={post.source === 'medium' ? post.slug : `/blog/${post.slug}`}
             target={post.source === 'medium' ? '_blank' : '_self'}
-            className="block group transition-opacity hover:opacity-90"
+            className="block group"
           >
             <BlogPostCard post={post} />
           </Link>
         ))}
       </div>
-    </section>
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          baseUrl="/blog"
+        />
+      )}
+    </div>
   );
 }
