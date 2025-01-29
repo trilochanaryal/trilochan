@@ -75,7 +75,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${domine.className} `} suppressHydrationWarning>
-      <body className="antialiased flex flex-col items-center justify-center mx-auto mb-20 lg:mb-40">
+      <body className="antialiased max-w-2xl mx-auto">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -83,7 +83,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="flex-auto min-w-0 mt-2 flex flex-col px-6 sm:px-4 md:px-0 max-w-[640px] w-full">
+          <main className="w-full lg:my-3 px-3 md:px-0">
             {children}
             <Footer />
             <Analytics />
