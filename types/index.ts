@@ -1,31 +1,31 @@
-export interface Project {
+export interface PostMetadata {
   title: string;
-  description: string;
-  link: string;
-  technologies?: string[];
+  publishedAt: string;
+  summary?: string;
+  description?: string;
+  readTime: number;
+  tags: string[];
 }
 
-export interface Tab {
-  label: string;
-  content: React.ReactNode;
+export interface Post {
+  metadata: PostMetadata;
+  slug: string;
+  content: string;
+  source: 'local' | 'medium';
 }
 
-export type Metadata = {
+export interface Metadata {
   title: string;
   publishedAt: string;
   summary: string;
   tags: string;
   image?: string;
-};
+}
 
-export interface Post {
-  metadata: {
-    title: string;
-    publishedAt: string;
-    tags: string[];
-    description?: string;
-  };
-  slug: string;
-  content: string;
-  source: 'medium' | 'local';
+export interface Project {
+  title: string;
+  year: number;
+  description: string;
+  url: string;
+  tools: string[];
 }
