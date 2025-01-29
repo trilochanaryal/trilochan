@@ -23,7 +23,7 @@ export const Pagination = ({
   } = usePagination({ currentPage, totalPages, baseUrl });
 
   return (
-    <nav className="flex items-center justify-center gap-2">
+    <nav className="flex items-center justify-center gap-2 mt-3">
       {hasPrevPage && (
         <Link
           href={prevPageUrl}

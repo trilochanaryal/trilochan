@@ -17,7 +17,7 @@ export function Navbar() {
   };
 
   return (
-    <header className="max-w-[640px] h-[5rem] px-4 py-6 flex flex-auto md:flex-row-reverse gap-4 items-center justify-end relative w-full md:px-0">
+    <header className="h-[5rem] px-4 py-6 flex flex-auto md:flex-row-reverse gap-4 items-center justify-end relative w-full md:px-0">
       <ThemeToggler />
       <Hamburger isMenuOpen={isMenuOpen} onToggleHamburger={toggleMenu} />
       <Navlinks isMenuOpen={isMenuOpen} onLinkClick={closeMenu} />
